@@ -14,16 +14,173 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      members: {
+        Row: {
+          address: string | null
+          age: number | null
+          created_at: string
+          email: string
+          expiry_date: string
+          gender: string | null
+          id: string
+          membership_plan_id: string | null
+          name: string
+          payment_status: string
+          phone: string
+          start_date: string
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          address?: string | null
+          age?: number | null
+          created_at?: string
+          email: string
+          expiry_date: string
+          gender?: string | null
+          id?: string
+          membership_plan_id?: string | null
+          name: string
+          payment_status?: string
+          phone: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          address?: string | null
+          age?: number | null
+          created_at?: string
+          email?: string
+          expiry_date?: string
+          gender?: string | null
+          id?: string
+          membership_plan_id?: string | null
+          name?: string
+          payment_status?: string
+          phone?: string
+          start_date?: string
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "members_membership_plan_id_fkey"
+            columns: ["membership_plan_id"]
+            isOneToOne: false
+            referencedRelation: "membership_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      membership_plans: {
+        Row: {
+          created_at: string
+          description: string | null
+          duration_days: number
+          features: string[] | null
+          id: string
+          plan_name: string
+          price: number
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          duration_days: number
+          features?: string[] | null
+          id?: string
+          plan_name: string
+          price: number
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          duration_days?: number
+          features?: string[] | null
+          id?: string
+          plan_name?: string
+          price?: number
+        }
+        Relationships: []
+      }
+      renewal_history: {
+        Row: {
+          id: string
+          member_id: string
+          new_expiry: string
+          plan_id: string | null
+          previous_expiry: string
+          renewed_at: string
+          renewed_by: string | null
+        }
+        Insert: {
+          id?: string
+          member_id: string
+          new_expiry: string
+          plan_id?: string | null
+          previous_expiry: string
+          renewed_at?: string
+          renewed_by?: string | null
+        }
+        Update: {
+          id?: string
+          member_id?: string
+          new_expiry?: string
+          plan_id?: string | null
+          previous_expiry?: string
+          renewed_at?: string
+          renewed_by?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "renewal_history_member_id_fkey"
+            columns: ["member_id"]
+            isOneToOne: false
+            referencedRelation: "members"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "renewal_history_plan_id_fkey"
+            columns: ["plan_id"]
+            isOneToOne: false
+            referencedRelation: "membership_plans"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +307,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "user"],
+    },
   },
 } as const
