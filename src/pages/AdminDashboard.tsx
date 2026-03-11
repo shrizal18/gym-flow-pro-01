@@ -58,6 +58,7 @@ export default function AdminDashboard() {
         <div className="max-w-7xl mx-auto">
           {activeTab === "dashboard" && <DashboardStats />}
           {activeTab === "members" && <MembersList />}
+          {activeTab === "users" && <UserManagement />}
         </div>
       </main>
     </div>
