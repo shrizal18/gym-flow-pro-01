@@ -1,17 +1,19 @@
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Dumbbell, LayoutDashboard, Users, LogOut, RefreshCw } from "lucide-react";
+import { Dumbbell, LayoutDashboard, Users, LogOut, ShieldCheck } from "lucide-react";
 import DashboardStats from "@/components/admin/DashboardStats";
 import MembersList from "@/components/admin/MembersList";
+import UserManagement from "@/components/admin/UserManagement";
 
 export default function AdminDashboard() {
   const { signOut } = useAuth();
-  const [activeTab, setActiveTab] = useState<"dashboard" | "members">("dashboard");
+  const [activeTab, setActiveTab] = useState<"dashboard" | "members" | "users">("dashboard");
 
   const tabs = [
     { id: "dashboard" as const, label: "Dashboard", icon: LayoutDashboard },
     { id: "members" as const, label: "Members", icon: Users },
+    { id: "users" as const, label: "User Roles", icon: ShieldCheck },
   ];
 
   return (
