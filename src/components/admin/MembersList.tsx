@@ -356,10 +356,3 @@ function RenewDialog({ member, plans, onClose, onRenew, loading }: { member: Mem
   );
 }
 
-type Member = {
-  id: string; name: string; phone: string; email: string; address: string | null;
-  age: number | null; gender: string | null; membership_plan_id: string | null;
-  start_date: string; expiry_date: string; payment_status: string; status: string;
-  created_at: string; updated_at: string;
-  membership_plans: { plan_name: string; duration_days: number } | null;
-};
